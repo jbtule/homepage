@@ -4,17 +4,26 @@
 <meta charset="utf-8">
 <title>Redirecting&hellip;</title>
 <script>
-  // Only these path prefixes redirect to jbtule.github.io (where their
-  // Pages sites actually live now); anything else here just 404s normally.
-  // Add more repo names to this list as needed.
-  var redirectPrefixes = ["/FSharp.Interop.Compose"];
+  // Only these paths redirect to jbtule.github.io (where their Pages sites
+  // actually live now); anything else here just 404s normally. Matching is
+  // case-insensitive on the way in, but always redirects to the canonical
+  // case below, since jbtule.github.io itself is case-sensitive.
+  var redirects = [
+    { match: "/fsharp.interop.compose", canonical: "/FSharp.Interop.Compose" }
+  ];
 
   var path = location.pathname;
-  if (redirectPrefixes.some(function (p) { return path === p || path.indexOf(p + "/") === 0; })) {
-    location.replace(
-      "https://jbtule.github.io" + path + location.search + location.hash
-    );
-  }
+  var pathLower = path.toLowerCase();
+  redirects.some(function (r) {
+    if (pathLower === r.match || pathLower.indexOf(r.match + "/") === 0) {
+      var rest = path.slice(r.match.length); // preserves case of anything after the prefix
+      location.replace(
+        "https://jbtule.github.io" + r.canonical + rest + location.search + location.hash
+      );
+      return true;
+    }
+    return false;
+  });
 </script>
 </head>
 <body>
