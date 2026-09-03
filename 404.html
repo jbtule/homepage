@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting&hellip;</title>
+<script>
+  // Project pages without their own custom domain used to be reachable at
+  // jay.tuley.name/<reponame> while this domain sat on the jbtule.github.com
+  // user site. Now that this domain lives on its own repo, anything under a
+  // path (not the bare "/") bounces to the same path on jbtule.github.io.
+  location.replace(
+    "https://jbtule.github.io" + location.pathname + location.search + location.hash
+  );
+</script>
+</head>
+<body>
+  <p>Moved to <a id="dest" href="https://jbtule.github.io/">jbtule.github.io</a>.</p>
+  <script>
+    document.getElementById("dest").href =
+      "https://jbtule.github.io" + location.pathname + location.search + location.hash;
+  </script>
+</body>
+</html>
